@@ -1,0 +1,56 @@
+文件结构
+/mnt/tquant
+  /tick/stocks       股票分时
+  /tick/indexs       指数分时
+  /compute/sdf/     
+
+实现数据的采集，备份，压缩
+
+
+设计细节：
+1.分时数据设置为5s一次
+
+
+监控任务
+2、涨停持续时间报告
+4、分布式数据采集（服务器监控，弥补早盘数据丢失以及意外情形，比如起晚了）
+5、热点板块监控
+
+DONE：
+3、--快速接近涨停报警
+1、--监控即将涨停的股票(有快速封板趋势的股票)
+
+
+股市中文文对照
+http://language.chinadaily.com.cn/2015-04/16/content_20450070.htm
+
+hitBoard 打板
+[牛市常用词]
+surge 大涨
+gain 上涨
+soar 飞涨
+climb 攀升
+rally 回升
+buoy 提振
+bullish 看涨的；上扬的
+fund inflow 资金流入
+capital inflow 资金流入
+outperform 跑赢（大盘）
+hover 徘徊
+returns 收益，回报
+pick up 回升
+edge up 微升
+
+[熊市常用词]
+slump 暴跌
+tumble 暴跌
+slip 下跌
+retreat 下跌
+fall 下跌
+drop 下降
+decline 下降
+bearish 看跌的，下跌的
+lose ground 下跌
+edge down 微降
+dip 微降
+equities bubble 股市泡沫

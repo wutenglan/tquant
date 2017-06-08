@@ -24,11 +24,7 @@
 			<groupId>com.goldskyer.tquant</groupId>
 			<artifactId>tquant-common</artifactId>
 		</dependency>
-		<dependency>
-			<groupId>com.sina</groupId>
-			<artifactId>scs-sdk</artifactId>
-			<version>1.0.0</version>
-		</dependency>
+
 
 		<!-- AOP增强 -->
 		<dependency>
@@ -201,12 +197,6 @@
 			<version>1.6</version>
 		</dependency>
 
-
-		<dependency>
-			<groupId>com.memcached</groupId>
-			<artifactId>java-memcached</artifactId>
-			<version>2.0.1</version>
-		</dependency>
 
 		<dependency>
 			<groupId>org.hibernate</groupId>

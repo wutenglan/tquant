@@ -5,6 +5,7 @@ import com.goldskyer.tquant.storage.entities.DataFrame;
 
 /**
  * 最小字节压缩算法
+ * 各个行表示：code,open-low,close-low,high-low,low,vol(股),amount(元)
  * @author jintianfan
  *
  */

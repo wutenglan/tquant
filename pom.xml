@@ -63,17 +63,11 @@
       </properties>
     </profile>
   </profiles>
-
-<distributionManagement>
+<repositories>
     <repository>
-      <id>releases</id>
-      <name>Internal Releases</name>
-      <url>http://nexus.goldskyer.com:8081/nexus/content/repositories/releases</url>
+        <id>YOUR-PROJECT-NAME-mvn-repo</id>
+    <url>https://raw.githubusercontent.com/GoldBoyF/mvn-repos/master/releases</url>
     </repository>
-    <snapshotRepository>
-      <id>Snapshots</id>
-      <name>Internal Snapshots</name>
-      <url>http://nexus.goldskyer.com:8081/nexus/content/repositories/snapshots</url>
-    </snapshotRepository>
-  </distributionManagement>
+</repositories>
+
 </project>

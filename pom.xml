@@ -19,6 +19,7 @@
     <module>tquant-storage</module>
     <module>tquant-analysis</module>
     <module>tquant-common</module>
+    <module>tquant-web</module>
   </modules>
 
   <properties>
@@ -40,6 +41,11 @@
       <dependency>
         <groupId>com.goldskyer.tquant</groupId>
         <artifactId>tquant-analysis</artifactId>
+        <version>${children.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.goldskyer.tquant</groupId>
+        <artifactId>tquant-web</artifactId>
         <version>${children.version}</version>
       </dependency>
     </dependencies>

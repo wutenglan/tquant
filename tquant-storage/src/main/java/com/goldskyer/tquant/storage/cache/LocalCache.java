@@ -13,13 +13,13 @@ public class LocalCache
 {
 	public static final Map<String, Object> dataMap = new ConcurrentHashMap<>();
 	
-	public static void put(String key, Object v)
-	{
-		dataMap.put(key, v);
-	}
-
-	public static Object get(String key)
-	{
-		return dataMap.get(key);
-	}
+//	public static void put(String key, Object v)
+//	{
+//		dataMap.put(key, v);
+//	}
+//
+//	public static Object get(String key)
+//	{
+//		return dataMap.get(key);
+//	}
 }

@@ -4,7 +4,7 @@ public class TickIndex
 {
 	public static final int EMPTY_DATA_TICK_ID = -1;
 	public static final int MIN_TICK_ID = 0;//对应9:25:00
-	public static final int MAX_TICK_ID = 14760; //13:01:00
+	public static final int MAX_TICK_ID = 14760; //15:01:00,对应收盘时间，如果MAX_TICK_ID=14760
 	private int tickId; //当前tick隶属节点
 	private int dataTickId; //
 

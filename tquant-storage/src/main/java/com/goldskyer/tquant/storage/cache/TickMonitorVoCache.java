@@ -9,6 +9,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import com.goldskyer.tquant.storage.exception.TickOutOfRangeException;
 import com.goldskyer.tquant.storage.monitor.vo.TickMonitorVo;
+import com.goldskyer.tquant.storage.utils.MemcachedUtil;
 
 /**
  * tick数据缓存器。
@@ -23,12 +24,14 @@ public class TickMonitorVoCache
 
 	public static void put(String key, TickMonitorVo v)
 	{
-		dataMap.put(key, v);
+		//dataMap.put(key, v);
+		MemcachedUtil.setValue(key, v);
 	}
 
 	public static TickMonitorVo get(String key)
 	{
-		return dataMap.get(key);
+		//return dataMap.get(key);
+		return (TickMonitorVo) MemcachedUtil.getValue(key);
 	}
 
 	/**
@@ -54,7 +57,7 @@ public class TickMonitorVoCache
 			}
 		}
 		catch (TickOutOfRangeException te)
-		{
+		{		
 			clear(); //股市收盘，全部清空数据
 		}
 
@@ -64,7 +67,7 @@ public class TickMonitorVoCache
 	{
 		dataMap.clear();
 	}
-	static
+	/*static
 	{
 		Timer timer = new Timer();
 		timer.scheduleAtFixedRate(new TimerTask() {
@@ -73,5 +76,5 @@ public class TickMonitorVoCache
 				cleanCache(60 * 10);//删除10分钟以外的tick缓存数据
 			}
 		}, 0, 1000 * 60);//1分钟执行一次
-	}
+	}*/
 }

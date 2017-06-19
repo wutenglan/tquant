@@ -72,4 +72,9 @@ public class TickMonitorVo
 		this.dataFrameMap = dataFrameMap;
 	}
 	
+	public boolean isMarketClose()
+	{
+		return tikcId==TickIndex.MAX_TICK_ID;
+	}
+	
 }

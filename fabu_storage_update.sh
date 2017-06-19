@@ -6,7 +6,7 @@ DIR="$( cd "$( dirname "$0"  )" && pwd  )"
 SERVER=$DIR/tquant-storage/target
 LOG_HOME=/mnt/logs/tquant
 #JVM启动参数 
-JAVA_OPTS="-server -Xms512m -Xmx512m -XX:PermSize=256M -XX:MaxPermSize=256M -Xloggc:/mnt/logs/tquant/storage_gc.log"
+JAVA_OPTS="-server -Xms1024m -Xmx1024m -XX:PermSize=512M -XX:MaxPermSize=512M -Xloggc:/mnt/logs/tquant/storage_gc.log"
 
   
 case "$1" in  

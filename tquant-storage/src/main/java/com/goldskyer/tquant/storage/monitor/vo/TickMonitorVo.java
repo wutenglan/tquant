@@ -1,5 +1,6 @@
 package com.goldskyer.tquant.storage.monitor.vo;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -7,7 +8,7 @@ import java.util.Map;
 
 import com.goldskyer.tquant.storage.sina.dto.SinaDataFrame;
 
-public class TickMonitorVo
+public class TickMonitorVo implements Serializable
 {
 	private int tikcId; //按分秒9:30为1 ，10：30:3601, 15:00:14401
 	private List<SinaDataFrame> dataFrames = new ArrayList<>();

@@ -1,5 +1,6 @@
 package com.goldskyer.tquant.storage.entities;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
@@ -19,7 +20,7 @@ import com.goldskyer.tquant.storage.entities.prikey.DataFrameKey;
 @Table(name = "data_frame")
 @Entity
 @IdClass(value = DataFrameKey.class)
-public class DataFrame
+public class DataFrame implements Serializable
 {
 	@Id
 	protected String sysCode; //系统指定的股票唯一编码系统唯一） //2

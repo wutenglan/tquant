@@ -6,7 +6,7 @@
 </#if>
 <#assign titleDesc="沪深两市实时数据分析平台，专业分析，精准选股">
 
-<#assign company="2016 © Coricher Company.">
+<#assign company="2017-2018 © Coricher Company.">
 
 
 <#assign sidebarSearch=false>  <#--搜索框开关-->

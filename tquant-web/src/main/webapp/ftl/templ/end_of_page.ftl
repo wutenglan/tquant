@@ -32,6 +32,9 @@
         <script src="${metronicPath}/assets/global/plugins/bootstrap-confirmation/bootstrap-confirmation.min.js" type="text/javascript"></script>
         <script src="${metronicPath}/assets/global/plugins/bootbox/bootbox.min.js" type="text/javascript"></script>
         
+        <script src="http://code.highcharts.com/highcharts.js"></script>
+		<script src="https://code.highcharts.com/modules/exporting.js"></script>
+        
         <!--加载myapp中的插件-->
         <script src="/myapp/plugins/jquery.form.js" type="text/javascript"></script>
         <script src="/myapp/js/base.js" type="text/javascript"></script>

@@ -125,7 +125,10 @@ public class SinaTickDownloadTask extends BaseScheduleTask
 		{
 			try
 			{
-				fos.close();
+				if(fos!=null)
+				{
+					fos.close();
+				}
 			}
 			catch (IOException e)
 			{

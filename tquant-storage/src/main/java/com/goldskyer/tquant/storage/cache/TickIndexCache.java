@@ -5,12 +5,16 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import com.goldskyer.tquant.common.util.DateUtil;
 import com.goldskyer.tquant.storage.exception.TickOutOfRangeException;
 import com.goldskyer.tquant.storage.monitor.vo.TickIndex;
 
 public class TickIndexCache
 {
+	private static final Log log=LogFactory.getLog(TickIndexCache.class);
 	private static final List<TickIndex> indexList = new ArrayList<>();
 	static
 	{
@@ -96,6 +100,8 @@ public class TickIndexCache
 
 	public static void clean()
 	{
+		log.info("执行tickIndex清理");
+		indexList.clear();
 		for (int i = TickIndex.MIN_TICK_ID; i <= TickIndex.MAX_TICK_ID; i++)
 		{
 			TickIndex index = new TickIndex();

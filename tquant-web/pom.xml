@@ -297,9 +297,9 @@
 				<artifactId>tomcat6-maven-plugin</artifactId>
 				<version>2.1</version>
 				<configuration>
-					<url>http://127.0.0.1:8080/manager</url>
+					<url>http://127.0.0.1:9090/manager</url>
 					<server>tomcat6</server>
-					<port>8080</port>
+					<port>9090</port>
 					<path>/</path>
 					<charset>utf-8</charset>
 					<uriEncoding>UTF-8</uriEncoding>

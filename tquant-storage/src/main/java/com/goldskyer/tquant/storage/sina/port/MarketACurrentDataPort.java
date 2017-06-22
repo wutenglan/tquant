@@ -4,6 +4,15 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.Callable;
+import java.util.concurrent.CompletionService;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorCompletionService;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+import java.util.concurrent.LinkedBlockingQueue;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -27,8 +36,8 @@ import net.sf.json.JSONObject;
 public class MarketACurrentDataPort
 {
 	private static Log log = LogFactory.getLog(MarketACurrentDataPort.class);
-	public static String INSTANT_URL = "http://vip.stock.finance.sina.com.cn/quotes_service/api/json_v2.php/Market_Center.getHQNodeData?page=1&num=10000&sort=symbol&asc=1&node=hs_a";
-
+	public static String INSTANT_URL = "http://vip.stock.finance.sina.com.cn/quotes_service/api/json_v2.php/Market_Center.getHQNodeData?page=1&num=100&sort=symbol&asc=1&node=hs_a";
+	public static final ExecutorService fixedThreadPool = Executors.newFixedThreadPool(40); 
 	/**
 	 * 获取当前的行情数据
 	 * @return
@@ -36,15 +45,63 @@ public class MarketACurrentDataPort
 	public static SinaToady getCurrentData()
 	{
 		Date date = new Date();
-		String dateString = DateUtil.date2String(date, "yyyyMMdd");
-		String result = HttpUtil.openUrlReturnMoreMessage(INSTANT_URL, "GBK");
-		return convertSinaToady(result, dateString);
+		final String dateString = DateUtil.date2String(date, "yyyyMMdd");
+		int TOTAL_TASK=40;
+        CompletionService<SinaToady> cService = new ExecutorCompletionService<SinaToady>(fixedThreadPool);
+
+
+		// 向里面扔任务
+		for ( int i = 1; i < 40; i++) {
+			final int curPage=i;
+			cService.submit(new Callable<SinaToady>() {
+				@Override
+				public SinaToady call() {
+					try{
+						String result = HttpUtil.openUrlReturnMoreMessage(INSTANT_URL.replace("page=1&", "page="+curPage+"&"), "GBK");
+						SinaToady sinaToady= convertSinaToady(result, dateString);
+						log.info("下载成功"+curPage);
+						return sinaToady;
+
+					}catch(Exception e)
+					{
+						log.fatal(e.getMessage()+"curPage:"+curPage,e);
+						return new SinaToady();
+					}
+					
+				}
+				
+			});
+		}
+		SinaToady sinaToady = new SinaToady();
+		sinaToady.setDate(new Date());
+		sinaToady.setDateString(dateString);
+		// 检查线程池任务执行结果
+		for (int i = 1; i < TOTAL_TASK; i++) {
+			try {
+				Future<SinaToady> future = cService.take();
+				if(future==null)
+				{
+					log.info("f is null");
+				}
+				if(future.get()!=null)
+				{
+					sinaToady.getSinaDataFrames().addAll(future.get().getSinaDataFrames());
+				}
+			} catch (Exception e) {
+				log.fatal(e.getMessage(),e);
+			} 
+		}
+		sinaToady.setCount(sinaToady.getSinaDataFrames().size());
+		return sinaToady;
 	}
 
 	private static SinaToady convertSinaToady(String jsonString, String dateString)
 	{
+		if(!jsonString.startsWith("["))
+		{
+			return new SinaToady();
+		}
 		SinaToady sinaToady = new SinaToady();
-		List<Instrument> stockVos = new ArrayList<Instrument>();
 		List<SinaDataFrame> dataFrames = new ArrayList<SinaDataFrame>();
 		JSONArray jsonArray = JSONArray.fromObject(jsonString);
 		sinaToady.setCount(jsonArray.size());
@@ -94,5 +151,10 @@ public class MarketACurrentDataPort
 		{
 			throw new BusinessException("code不能映射到对应的市场。code：" + code);
 		}
+	}
+	
+	public static void main(String[] args) {
+		SinaToady sinaToady=getCurrentData();
+		System.out.println(sinaToady.getSinaDataFrames().size());
 	}
 }

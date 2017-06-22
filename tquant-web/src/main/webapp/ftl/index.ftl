@@ -10,7 +10,7 @@
 
 </@framework>
 <script type="text/javascript"> 
-$.getJSON('https://www.highcharts.com/samples/data/jsonp.php?filename=usdeur.json&callback=?', function (data) {
+$.getJSON('http://localhost:9999/surgeLimit/sayHello1?1=1&callback=?', function (data) {
 
     Highcharts.chart('container', {
         chart: {
@@ -65,7 +65,20 @@ $.getJSON('https://www.highcharts.com/samples/data/jsonp.php?filename=usdeur.jso
             type: 'area',
             name: 'USD to EUR',
             data: data
-        }]
+        },
+        {
+        type: 'area',
+        name: 'Winter 2014-2015',
+        data:[[Date.UTC(2013,5,2),1.7695],
+        	[Date.UTC(2013,5,3),1.7648]]
+    	},
+    	{
+        type: 'area',
+        name: 'Winter 2014-2015',
+        data:[[Date.UTC(2013,5,6),1.7695],
+        	[Date.UTC(2013,5,7),1.7648]]
+    	}
+        ]
     });
 });
 

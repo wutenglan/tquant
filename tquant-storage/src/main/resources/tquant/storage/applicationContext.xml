@@ -31,5 +31,6 @@
 	
 	<import resource="spring-datasource.xml" />
 	<import resource="spring-transaction.xml" />
+	<import resource="spring-dubbo.xml" />
 	
 </beans>

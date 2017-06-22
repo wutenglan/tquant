@@ -1,5 +1,6 @@
 package com.goldskyer.tquant.storage.sina.dto;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -8,7 +9,7 @@ import com.goldskyer.tquant.storage.entities.Instrument;
 
 public class SinaToady {
 	private List<Instrument> stockVos;
-	private List<SinaDataFrame> sinaDataFrames;
+	private List<SinaDataFrame> sinaDataFrames =new ArrayList<>();
 	private int count;
 	private String sign;
 	private String dateString;

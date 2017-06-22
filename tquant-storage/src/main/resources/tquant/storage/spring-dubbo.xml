@@ -1,0 +1,20 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+	http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+
+	
+    <dubbo:application name="tquant-storage" organization="dubbox" />
+	<dubbo:protocol   name="rest" server="netty" port="9999"  extension="com.goldskyer.tquant.storage.api.filter.CrosFilter" />
+	
+    <dubbo:consumer timeout="2000" retries="0"></dubbo:consumer>
+    
+    <dubbo:service registry="N/A" protocol="rest" interface="com.goldskyer.tquant.storage.api.SurgedLimitApi" ref="surgedLimitApi"/>
+     
+     <!-- 声明需要暴露的服务接口 -->
+	<dubbo:service registry="N/A" interface="com.goldskyer.tquant.storage.api.DemoService" ref="demoService"  protocol="rest"/>
+	
+	<!-- 具体的实现bean -->
+	<bean id="demoService" class="com.goldskyer.tquant.storage.api.impl.DemoServiceImpl" />
+</beans>

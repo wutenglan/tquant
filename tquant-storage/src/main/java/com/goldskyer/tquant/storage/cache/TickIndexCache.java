@@ -69,6 +69,18 @@ public class TickIndexCache
 	}
 
 	/**
+	 * 
+	 * @param time HHMMSS
+	 * @return
+	 */
+	public static int getTickIdByTime(String time)
+	{
+		return getTickIdByDate(DateUtil.string2Date("20160101"+time, "yyyyMMddHHmmSS"));
+	}
+	
+	
+	
+	/**
 	 * 根据日期，获取当前的tickId
 	 * 9:25:00 为0
 	 * 说明：11：30和1：00共享一个单元，允许覆盖
@@ -97,6 +109,21 @@ public class TickIndexCache
 		}
 		return result;
 	}
+	
+	public static String getTimeByTickId(int tickId)
+	{
+		int cal=tickId;
+		if(tickId>7500)
+		{
+			cal+=90*60;
+		}
+		Calendar calendar=Calendar.getInstance();
+		calendar.set(Calendar.HOUR_OF_DAY, 9);
+		calendar.set(Calendar.MINUTE, 25);
+		calendar.set(Calendar.SECOND, 0);
+		calendar.add(Calendar.SECOND, cal);
+		return DateUtil.formatDate(calendar.getTime(), "HHmmss");
+	}
 
 	public static void clean()
 	{
@@ -114,7 +141,7 @@ public class TickIndexCache
 
 	public static void main(String[] args)
 	{
-
+		System.out.println(getTimeByTickId(14760));
 		System.out.println(getTickIdByDate(DateUtil.string2Date("20090101150100", "yyyyMMddHHmmss")));
 	}
 }

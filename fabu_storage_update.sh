@@ -30,7 +30,7 @@ case "$1" in
 
   update)  
     cd $DIR
-    svn update
+    git pull
 	  mvn clean
 	  mvn package -Dmaven.test.skip=true -Ponline
     ;; 

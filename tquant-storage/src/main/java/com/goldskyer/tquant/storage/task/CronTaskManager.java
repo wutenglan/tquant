@@ -62,7 +62,7 @@ public class CronTaskManager
 	private void loadInnerCronTask() throws Exception
 	{
 		CronTrigger cronTrigger = new CronTrigger("DailyCleanCacheTask", "inner");
-		CronExpression cronExpression = new CronExpression("* * 0 * * ?");
+		CronExpression cronExpression = new CronExpression("0 10 0 * * ?");
 		cronTrigger.setCronExpression(cronExpression);
 		JobDetail detail = new JobDetail("DailyCleanCacheTask", "inner", DailyCleanCacheTask.class);
 		scheduler.scheduleJob(detail, cronTrigger);

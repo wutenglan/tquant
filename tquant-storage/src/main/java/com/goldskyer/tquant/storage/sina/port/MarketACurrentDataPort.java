@@ -59,7 +59,7 @@ public class MarketACurrentDataPort
 					try{
 						String result = HttpUtil.openUrlReturnMoreMessage(INSTANT_URL.replace("page=1&", "page="+curPage+"&"), "GBK");
 						SinaToady sinaToady= convertSinaToady(result, dateString);
-						log.info("下载成功"+curPage);
+						//log.info("下载成功"+curPage);
 						return sinaToady;
 
 					}catch(Exception e)

@@ -17,6 +17,7 @@ import com.goldskyer.tquant.storage.compress.DefaultDataFrameCompressor;
 import com.goldskyer.tquant.storage.constant.PathConstant;
 import com.goldskyer.tquant.storage.constant.StorageConstant;
 import com.goldskyer.tquant.storage.entities.DataFrame;
+import com.goldskyer.tquant.storage.entities.FullDataFrame;
 import com.goldskyer.tquant.storage.service.StorageFileService;
 
 @Service
@@ -28,18 +29,19 @@ public class StorageFileServiceImpl  implements StorageFileService {
 	{
 		return PathConstant.HOME + "/tick/stocks/" + dateString + "/" + time + ".txt";
 	}
-	public List<DataFrame> loadFile(String dateString, String time) {
+	
+	public <T extends DataFrame> List<T> loadFile(String dateString, String time,Class<T> cls) {
 		String filePath = getStorageFilePath(dateString, time);
 		if (new File(filePath).exists()) {
 			try {
-				List<DataFrame> sdfs = new ArrayList<>();
-				DataFrameCompress dataFrameCompress = new DefaultDataFrameCompressor();
+				List<T> sdfs = new ArrayList<>();
+				DataFrameCompress<T> dataFrameCompress = new DefaultDataFrameCompressor<T>();
 				List<String> lines=IOUtils.readLines(new FileInputStream(filePath));
 				for(String line:lines)
 				{
 					if(StringUtils.isNotBlank(line))
 					{
-						DataFrame df=dataFrameCompress.depressDataFrame(line.getBytes());
+						T df=dataFrameCompress.depressDataFrame(line.getBytes(),cls);
 						sdfs.add(df);
 					}
 				}
@@ -54,7 +56,7 @@ public class StorageFileServiceImpl  implements StorageFileService {
 		}
 	}
 
-	public List<DataFrame> getExistDataFrames(String dateString,String time)
+	public <T extends DataFrame>  List<T> getExistDataFrames(String dateString,String time,Class<T> clas)
 	{
 		int tickId=TickIndexCache.getTickIdByTime(time);
 		int maxId=tickId+StorageConstant.FIND_TICK_VALID_RANGE;
@@ -64,15 +66,20 @@ public class StorageFileServiceImpl  implements StorageFileService {
 			String file=getStorageFilePath(dateString,t);
 			if(new File(file).exists())
 			{
-				return loadFile( dateString,t);
+				return loadFile( dateString,t,clas);
 			}
 		}
-		return null;
+		return new ArrayList<>();
 	}
 	
 	public static void main(String[] args) {
-		List<DataFrame> sds=new StorageFileServiceImpl().getExistDataFrames("20170621", "150030");
+		List<FullDataFrame> sds=new StorageFileServiceImpl().getExistDataFrames("20170621", "150030",FullDataFrame.class);
 		System.out.println(sds.size());
+	}
+	@Override
+	public <T extends DataFrame> List<T> getCloseMarketDataFrames(String dateString,Class<T> cls) 
+	{
+		return getExistDataFrames(dateString, StorageConstant.CLOSE_MARKET_RANGE_START,cls);
 	}
 	
 }

@@ -7,10 +7,13 @@ import com.goldskyer.tquant.storage.entities.DataFrame;
  * @author jintianfan
  *
  */
-public interface DataFrameCompress
+public interface DataFrameCompress<T extends DataFrame>
 {
-	public byte[] compressDataFrame(DataFrame dataFrame);
+	public byte[] compressDataFrame(T dataFrame);
 
-	public DataFrame depressDataFrame(byte[] line);
+
+	public  T depressDataFrame(byte[] line,Class<T> cls);
+
+
 
 }

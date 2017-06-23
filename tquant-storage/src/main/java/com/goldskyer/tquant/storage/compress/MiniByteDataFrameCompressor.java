@@ -9,10 +9,11 @@ import com.goldskyer.tquant.storage.entities.DataFrame;
  * @author jintianfan
  *
  */
-public class MiniByteDataFrameCompressor implements DataFrameCompress
+@Deprecated
+public class MiniByteDataFrameCompressor 
 {
 
-	@Override
+	
 	public byte[] compressDataFrame(DataFrame dataFrame) throws BusinessException
 	{
 		String line = dataFrame.getSysCode() + "," + dataFrame.getOpen().subtract(dataFrame.getLow()) + ","
@@ -22,7 +23,7 @@ public class MiniByteDataFrameCompressor implements DataFrameCompress
 		return line.getBytes();
 	}
 
-	@Override
+	
 	public DataFrame depressDataFrame(byte[] line)
 	{
 		// TODO Auto-generated method stub

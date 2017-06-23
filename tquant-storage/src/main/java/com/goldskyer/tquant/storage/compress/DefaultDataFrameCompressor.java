@@ -3,15 +3,16 @@ package com.goldskyer.tquant.storage.compress;
 import java.math.BigDecimal;
 
 import com.goldskyer.tquant.storage.entities.DataFrame;
+import com.goldskyer.tquant.storage.utils.ReflectUtil;
 
-public class DefaultDataFrameCompressor implements DataFrameCompress
+public class DefaultDataFrameCompressor<T extends DataFrame> implements DataFrameCompress <T>
 {
 
 	/**
 	 * code,o,c,h,l,v,a
 	 */
 	@Override
-	public byte[] compressDataFrame(DataFrame dataFrame)
+	public byte[] compressDataFrame(T dataFrame)
 	{
 
 		String line = dataFrame.getSysCode() + "," + dataFrame.getOpen().subtract(dataFrame.getLow()) + ","
@@ -22,11 +23,11 @@ public class DefaultDataFrameCompressor implements DataFrameCompress
 	}
 
 	@Override
-	public DataFrame depressDataFrame(byte[] line)
+	public  T depressDataFrame(byte[] line,Class<T> cls)
 	{
 		String str = new String(line);
 		String[] items = str.split(",");
-		DataFrame df = new DataFrame();
+		T df = ReflectUtil.createInstance(cls);
 		df.setLow(new BigDecimal(items[4]));
 		df.setOpen(df.getLow().add(new BigDecimal(items[1])));
 		df.setClose(df.getLow().add(new BigDecimal(items[2])));
@@ -36,5 +37,6 @@ public class DefaultDataFrameCompressor implements DataFrameCompress
 		df.setAmount(new BigDecimal(items[6]));
 		return df;
 	}
+
 
 }
